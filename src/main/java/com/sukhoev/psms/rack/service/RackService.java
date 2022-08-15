@@ -5,6 +5,7 @@ import com.sukhoev.psms.rack.repository.RackRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -22,5 +23,24 @@ public class RackService {
         }
 
         return optRack.get();
+    }
+
+    public void addRack(Rack rack) {
+        rackRepository.save(rack);
+    }
+
+    public List<Rack> findAll() {
+
+        List<Rack> racks = rackRepository.findAll();
+
+        if(racks.isEmpty()) {
+            throw new IllegalStateException("Rack not found");
+        }
+
+        return racks;
+    }
+
+    public void deleteRack(Long rackId) {
+        rackRepository.deleteById(rackId);
     }
 }
